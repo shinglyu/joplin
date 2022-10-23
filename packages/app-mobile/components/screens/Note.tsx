@@ -10,7 +10,7 @@ import { ChangeEvent, UndoRedoDepthChangeEvent } from '../NoteEditor/types';
 
 const FileViewer = require('react-native-file-viewer').default;
 const React = require('react');
-const { Platform, Keyboard, View, TextInput, StyleSheet, Linking, Image, Share, PermissionsAndroid } = require('react-native');
+const { Platform, Keyboard, View, Text, TextInput, StyleSheet, Linking, Image, Share, PermissionsAndroid } = require('react-native');
 const { connect } = require('react-redux');
 // const { MarkdownEditor } = require('@joplin/lib/../MarkdownEditor/index.js');
 import Note from '@joplin/lib/models/Note';
@@ -1052,6 +1052,7 @@ class NoteScreenComponent extends BaseScreenComponent {
 			return (
 				<View style={this.styles().screen}>
 					<ScreenHeader />
+					<Text>Loading...</Text>
 				</View>
 			);
 		}

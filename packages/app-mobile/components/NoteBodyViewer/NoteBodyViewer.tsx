@@ -1,11 +1,11 @@
-import { useRef, useCallback } from 'react';
+import { useRef, useCallback, useState } from 'react';
 
 import useSource from './hooks/useSource';
 import useOnMessage from './hooks/useOnMessage';
 import useOnResourceLongPress from './hooks/useOnResourceLongPress';
 
 const React = require('react');
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import BackButtonDialogBox from '../BackButtonDialogBox';
 import { reg } from '@joplin/lib/registry';
 import ExtendedWebView from '../ExtendedWebView';
@@ -31,6 +31,7 @@ const webViewStyle = {
 
 export default function NoteBodyViewer(props: Props) {
 	const dialogBoxRef = useRef(null);
+	const [loading, setLoading] = useState(true);
 
 	const { html, injectedJs } = useSource(
 		props.noteBody,
@@ -56,6 +57,7 @@ export default function NoteBodyViewer(props: Props) {
 	);
 
 	const onLoadEnd = useCallback(() => {
+		setLoading(false);
 		if (props.onLoadEnd) props.onLoadEnd();
 	}, [props.onLoadEnd]);
 
@@ -88,6 +90,7 @@ export default function NoteBodyViewer(props: Props) {
 	// the above no longer applies.
 	return (
 		<View style={props.style}>
+			{ loading && <Text>Loading...</Text> }
 			<ExtendedWebView
 				webviewInstanceId='NoteBodyViewer'
 				themeId={props.themeId}
